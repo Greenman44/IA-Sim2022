@@ -2,11 +2,11 @@
 Repositorio para desarrollar el proyecto de IA-Simulación para la carrera de Ciencia de la Computación de la Universidad de la Habana
 \
 \
-Integrantes:
-Ernesto Alfonso Hérnandez C312
-Jorge Alejandro Soler González C312
-Abraham González Rivero C312
-Tema: Presa vs Depredador
+# Integrantes:
+Ernesto Alfonso Hérnandez C312 \
+Jorge Alejandro Soler González C312 \
+Abraham González Rivero C312 \
+# Tema: Presa vs Depredador
 Breve Descripción:
   Una simulación por turnos de un ambiente hostil, habitado por una variedad de especies cuyo propósito es sobrevivir.
   El entorno será un mapa dividido por casillas, cada casillas posee características q afectan a los habitantes de esta región( Su movilidad, visibilidad, si proveen de alimentos, entre otras).
