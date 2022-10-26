@@ -18,4 +18,5 @@ Breve Descripción: \
     - Hambre: Cantidad de turnos que puede estar sin comer. \
     . Devorar: Capacidad de regenerar hambre si en mi casilla actual hay una presa, y las características del terreno lo permiten. \
   Algunas especies pueden adquirir determinados rasgos tras devorar a otras, ejemplo: Si devoras a un mono, puedes usar la habilidad trepar en una casilla de tipo árbol. \
-  Realmente nos interesa la modelación del proceso de la toma de decisiones de una especie para obtener alimentos. Unos primeros acercamientos pudieran ser, al no encontrar alimentos, evaluar la probabilidad de encontrar presas en determinadas casillas que proveen alimentos, dadas las características del mapa, las especies que lo habitan, sus hábitos alimenticios y la posición actual del  depredador en cuestión. 
+  Realmente nos interesa la modelación del proceso de la toma de decisiones de una especie para obtener alimentos. Unos primeros acercamientos pudieran ser, al no encontrar alimentos, evaluar la probabilidad de encontrar presas en determinadas casillas que proveen alimentos, dadas las características del mapa, las especies que lo habitan, sus hábitos alimenticios y la posición actual del  depredador en cuestión. \
+  https://github.com/Greenman44/IA-Sim2022
