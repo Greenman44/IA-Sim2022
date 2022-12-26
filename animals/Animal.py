@@ -1,13 +1,17 @@
-from Cell import Cell
+from map.Cell import Cell
 
 
 class Animal:
-    def __init__(self, current_Cell):
+    def __init__(self, pos_x, pos_y):
         self.strength = 1
-        self.movility = 1
+        self.mobility = 1
         self.stamina = 2
         self.initial_stm = 2
-        self.current_Cell = current_Cell
+        self.pos_x = pos_x
+        self.pos_y = pos_y
+
+    def get_perception(self):
+        pass
     
     def Move(self):
         pass

@@ -1,4 +1,4 @@
-from Animal import *
+from animals.Animal import *
 
 class Predator(Animal):
     def __init__(self):
