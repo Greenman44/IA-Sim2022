@@ -4,8 +4,9 @@ class Prey(Animal):
     def __init__(self):
         super().__init__()
     
-    def get_perception(self):
-        return super().get_perception()
+    def get_perception(self, map):
+        pass
+        
 
     def Move(self):
         return super().Move()
@@ -15,7 +16,6 @@ class Prey(Animal):
 
 class Deer(Prey):
     def __init__(self):
-        self.strength = super
         self.mobility = 3
         self.stamina, self.initial_stm = 6
     def Move(self):
@@ -25,8 +25,6 @@ class Deer(Prey):
 
 class Hare(Prey):
     def __init__(self):
-        self.strength = super
-        self.mobility = super
         self.stamina, self.initial_stm = 4
     def Move(self):
         return super().Move()
@@ -35,7 +33,6 @@ class Hare(Prey):
 
 class Zebra(Prey):
     def __init__(self):
-        self.strength = super
         self.mobility = 2
         self.stamina, self.initial_stm = 5
     def Move(self):
@@ -45,7 +42,6 @@ class Zebra(Prey):
 
 class Monkey(Prey):
     def __init__(self):
-        self.strength = super
         self.mobility = 2
         self.stamina, self.initial_stm = 4
     def Move(self):
