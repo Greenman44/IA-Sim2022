@@ -14,7 +14,7 @@ class ForestCell(Cell):
     def __init__(self):
         self.typeOfCell = "forest"
         super().__init__(self)
-        self.restrictions = [-2,0,0]
+        self.restrictions = [-2,-2,0]
 class MountainCell(Cell):
     def __init__(self):
         self.typeOfCell = "mountain"
