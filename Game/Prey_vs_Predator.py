@@ -8,7 +8,7 @@ class Prey_vs_Predator:
         self.animals = animals
 
     def Actions(self, current_animal: Animal):
-        return K_BFS(current_animal.pos_x,current_animal.pos_y,current_animal.mobility,self.map,False)
+        return K_BFS(current_animal.pos_x, current_animal.pos_y, current_animal.data["mobility"], self.map,False)
 
     # def Result(): 
     #     pass
