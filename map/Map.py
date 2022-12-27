@@ -19,12 +19,12 @@ class Map:
 
 
     def __getitem__(self, items):
-        if len(items) == 2:
+        if len(items) == 2 and items[0] >= 0 and items[1] >= 0:
             return self.cell_List[items[0]][items[1]]
         raise IndexError() 
 
     def __setitem__(self, *items, value):
-        if len(items) == 2:
+        if len(items) == 2 and items[0] >= 0 and items[1] >= 0:
             self.cell_List[items[0]][items[1]] = value
         raise IndexError()   
 
