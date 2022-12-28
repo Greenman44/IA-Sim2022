@@ -10,14 +10,17 @@ map.Builder_Map()
 
 print(K_BFS(2,2, 4, map))
 
-monkey = Monkey(2,2)
+monkey = Monkey(2,3)
+venao = Hare(2,2)
 tiger = Tiger(2,1)
 
-map[2,1].animal = tiger
-map[2,2].animal = monkey
+# Add animals to the map
+
 
 tiger.Move(map,(2,2))
+monkey.Move(map,(2,4))
 
 
 print(map[2,2])
+print(map[2,4])
 

@@ -2,19 +2,20 @@
 class Cell:
     def __init__(self):
         self.food = 0
-        self.animal = None
+        self.animals = set()
         self.restrictions = {
             "vision" : 0,
             "mobility" :  -1,
             "stamina" : 0 
         }
-        self.icon = "C"
-    
-    def __str__(self):
-        if self.animal != None:
-            return self.animal.icon
-        else:
-            return self.icon 
+        self.icon = [" C"]
+        
+    def __repr__(self):
+        l=[]
+        for animal in self.animals:
+            l.append(animal.icon)
+        return str(l)
+
         
 class WaterCell(Cell):
     def __init__(self):

@@ -8,7 +8,7 @@ class Animal(object):
         super(Animal,self).__setattr__("data",{"vision" : 3, "strength" : 1, "mobility" : 2, "stamina" : 2, "initial_stm" : 2})
         self.pos_x = pos_x
         self.pos_y = pos_y
-        self.icon = "A" # Icon to show in the map
+        self.icon = " A" # Icon to show in the map
 
     def get_perception(self):
         pass
@@ -18,19 +18,19 @@ class Animal(object):
         # map[play] = self.icon # The value of the currente animal to draw the map
         return map
     
-    def Interaction(self, map: Map, pos):
-        animal = map[pos].animal
-        r = random.random()
-        if animal != None:
-            if animal.strength < self.strength: # This could be changed for a stocastic thing
-                map[pos].animal = self
-            elif animal.strength == self.strength:
-                if r < 0.5:
-                    map[pos].animal = self
-        elif map[pos].food != 0:
-            self.Recovery()
-        else:
-            map[pos] = self.icon
+    # def Interaction(self, map: Map, pos):
+    #     animal = map[pos].animal
+    #     r = random.random()
+    #     if animal != None:
+    #         if animal.strength < self.strength: # This could be changed for a stocastic thing
+    #             map[pos].animal = self
+    #         elif animal.strength == self.strength:
+    #             if r < 0.5:
+    #                 map[pos].animal = self
+    #     elif map[pos].food != 0:
+    #         self.Recovery()
+    #     else:
+    #         map[pos] = self.icon
 
     def __setattr__(self, attr, value):
         self.data[attr]=value
