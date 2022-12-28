@@ -7,17 +7,6 @@ from Tools import K_BFS
 
 map = Map(5,5)
 map.Builder_Map()
-
-print(K_BFS(2,2, 4, map))
-
-monkey = Monkey(2,2)
-tiger = Tiger(2,1)
-
-map[2,1].animal = tiger
-map[2,2].animal = monkey
-
-tiger.Move(map,(2,2))
-
-
-print(map[2,2].animal)
+an = Animal(2,4)
+print(an.ActionsSet(map))
 

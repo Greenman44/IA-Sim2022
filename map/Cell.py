@@ -5,7 +5,7 @@ class Cell:
         self.animal = None
         self.restrictions = {
             "vision" : 0,
-            "mobility" :  0,
+            "mobility" :  -1,
             "stamina" : 0 
         }
         
@@ -36,12 +36,14 @@ class MeadowCell(Cell):
         self.typeOfCell = "meadow"
         super().__init__(self)
         self.restrictions["vision"] = -1
+        self.restrictions["mobility"] = -1
         
         
 class PlainCell(Cell):
     def __init__(self):
         self.typeOfCell = "plain"
         super().__init__(self)
+        self.restrictions["mobility"] = -1
         
         
                 

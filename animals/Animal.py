@@ -51,16 +51,33 @@ class Animal(object):
             raise KeyError
 
 
-    def __setitem__(self, key, value):
-        try:
-            self.__setattr__(key, value)
-        except:
-            raise KeyError
+   
 
     def Recovery(self):
         self.stamina += self.initial_stm - self.stamina
 
 
-
-
-
+    def ActionsSet(self,map):                
+        stamDict = {(self.pos_x,self.pos_y) : 0}
+        self.ActionsSetDFS(map,self.pos_x,self.pos_y,stamDict,self.data["stamina"],self.data["mobility"])        
+        return stamDict   
+    
+    def ActionsSetDFS(self, map, cx, cy, stamina,stam, mob):
+        dx = [0,0,1,-1]
+        dy = [1,-1,0,0]
+        for i in range(len(dx)):
+            son = None
+            nx = cx + dx[i]
+            ny = cy + dy[i]
+            try:
+                son = map[nx,ny]
+            except:
+                continue
+            if (stam + map[cx,cy].restrictions["stamina"]) > 0 and (mob + map[cx,cy].restrictions["mobility"] ) >= 0 :
+                cstam = stam + map[cx,cy].restrictions["stamina"]
+                try:
+                    if cstam < stamina[(nx,ny)]:
+                        stamina[(nx,ny)] = cstam
+                except: 
+                    stamina[(nx,ny)] = cstam
+                self.ActionsSetDFS(map, nx,ny,stamina,cstam,mob + map[cx,cy].restrictions["mobility"] )
