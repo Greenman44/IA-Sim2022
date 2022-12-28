@@ -20,6 +20,7 @@ class Deer(Prey):
         self.stamina = 6
         self.initial_stm = 6
         self.vision = 9
+        self.icon = "D"
     def Move(self,map,play):
         return super().Move(map,play)
     def Recovery(self):
@@ -32,6 +33,7 @@ class Hare(Prey):
         self.stamina = 4
         self.initial_stm = 4
         self.vision = 4
+        self.icon = "H"
     def Move(self,map,play):
         return super().Move(map,play)
     def Recovery(self):
@@ -44,6 +46,7 @@ class Zebra(Prey):
         self.stamina = 6
         self.initial_stm = 6
         self.vision = 5
+        self.icon = "Z"
     def Move(self,map,play):
         return super().Move(map,play)
     def Recovery(self):
@@ -56,6 +59,7 @@ class Monkey(Prey):
         self.stamina = 5
         self.initial_stm = 5
         self.vision = 6
+        self.icon = "M"
     def Move(self,map,play):
         return super().Move(map,play)
     def Recovery(self):

@@ -21,6 +21,7 @@ class Lion(Predator):
         self.stamina = 6
         self.initial_stm = 6
         self.vision = 6
+        self.icon = "L"
     def Move(self,map,play):
         return super().Move(map,play)
     def Recovery(self):
@@ -34,6 +35,7 @@ class Wolf(Predator):
         self.stamina = 5
         self.initial_stm = 5
         self.vision = 8
+        self.icon = "W"
     def Move(self,map,play):
         return super().Move(map,play)
 
@@ -47,6 +49,7 @@ class Tiger(Predator):
         self.mobility = 5
         self.stamina = 7
         self.initial_stm = 7
+        self.icon = "T"
     def Move(self, map, play):
         return super().Move(map, play)
     def Recovery(self):

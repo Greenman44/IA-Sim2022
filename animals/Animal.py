@@ -24,13 +24,10 @@ class Animal(object):
         if animal != None:
             if animal.strength < self.strength: # This could be changed for a stocastic thing
                 map[pos].animal = self
-                map[pos].toString = self.icon
             elif animal.strength == self.strength:
                 if r < 0.5:
                     map[pos].animal = self
-                    map[pos].toString = self.icon
         elif map[pos].food != 0:
-            map[pos].toString = self.icon
             self.Recovery()
         else:
             map[pos] = self.icon

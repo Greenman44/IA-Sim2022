@@ -19,5 +19,5 @@ map[2,2].animal = monkey
 tiger.Move(map,(2,2))
 
 
-print(map[2,2].animal)
+print(map[2,2])
 

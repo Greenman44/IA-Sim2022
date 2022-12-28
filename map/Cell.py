@@ -8,6 +8,13 @@ class Cell:
             "mobility" :  0,
             "stamina" : 0 
         }
+        self.icon = "C"
+    
+    def __str__(self):
+        if self.animal != None:
+            return self.animal.icon
+        else:
+            return self.icon 
         
 class WaterCell(Cell):
     def __init__(self):
