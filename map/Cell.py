@@ -5,7 +5,7 @@ class Cell:
         self.animal = None
         self.restrictions = {
             "vision" : 0,
-            "mobility" :  0,
+            "mobility" :  -1,
             "stamina" : 0 
         }
         self.icon = "C"
