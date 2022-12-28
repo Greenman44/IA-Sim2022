@@ -31,5 +31,5 @@ def K_BFS(init_x, init_y, k, map, vision = False):
                 result.append(cell)
     return distance
 
-                
+
 
