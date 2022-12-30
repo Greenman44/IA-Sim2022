@@ -6,6 +6,7 @@ class Cell:
         self.pred_food = 0
         self.food = 0
         self.animals = set()
+        self.typeOfCell = "celda"
         self.restrictions = {
             "vision" : 0,
             "mobility" :  -1,
@@ -34,37 +35,37 @@ class Cell:
         
 class WaterCell(Cell):
     def __init__(self):
+        super().__init__()
         self.typeOfCell = "water"
-        super().__init__(self)
         self.restrictions["mobility"] = -2
         self.restrictions["stamina"] = -3
         
 class ForestCell(Cell):
     def __init__(self):
+        super().__init__()
         self.typeOfCell = "forest"
-        super().__init__(self)
         self.restrictions["vision"] = -2
         self.restrictions["mobility"] = -2
 
 class MountainCell(Cell):
     def __init__(self):
+        super().__init__()
         self.typeOfCell = "mountain"
-        super().__init__(self)
         self.restrictions["mobility"] = -2
         self.restrictions["stamina"] = -2
 
 class MeadowCell(Cell):
     
     def __init__(self):
+        super().__init__()
         self.typeOfCell = "meadow"
-        super().__init__(self)
         self.restrictions["vision"] = -1
         
         
 class PlainCell(Cell):
     def __init__(self):
+        super().__init__()
         self.typeOfCell = "plain"
-        super().__init__(self)
         
         
                 

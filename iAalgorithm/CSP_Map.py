@@ -21,18 +21,15 @@ class MapConstraint(Constraint[str,str]):
 
 def RandomCellForGenerate(map, amountofCells:int):
         temp: tuple(int,int)
-        randomCells = [[]]
-        listOfConstraintCells = []
-        for i in range(4):
+        listOfConstraintCells = [[],[],[],[],[]]
+        for i in range(5):
             posRow = randint(0,len(map.cell_List)-1)
             posCol = randint(0,len(map.cell_List[0])-1)
             restricCell = K_BFS_Vision(posRow,posCol,amountofCells,map)
             for pos in restricCell.keys():
-                listOfConstraintCells.append(map[int(pos[0]),int(pos[1])])
-            randomCells.append(listOfConstraintCells)
-            listOfConstraintCells.clear()
+                listOfConstraintCells[i].append(pos)
             i += 1
-        return randomCells
+        return listOfConstraintCells
 
 def Create_Constraint_for_Map(cellsConstr, csp: CSP, i:int):
     j = i + 1
@@ -46,6 +43,27 @@ def Create_Constraint_for_Map(cellsConstr, csp: CSP, i:int):
         except:
             k+=1
     return Create_Constraint_for_Map(cellsConstr,csp, j)
+
+def ConvertListCell_in_SolutionCell(dictSol : dict[str,str], pos_List,map):
+    j = 0
+    for key in dictSol:
+        for pos in pos_List[j]:
+            if dictSol[key] == "water":
+                cell = WaterCell()
+                map.cell_List[pos[0]][pos[1]] = cell
+            elif dictSol[key] == "forest":
+                cell = ForestCell()
+                map.cell_List[pos[0]][pos[1]] = cell
+            elif dictSol[key] == "plain":
+                cell = PlainCell()
+                map.cell_List[pos[0]][pos[1]] = cell
+            elif dictSol[key] == "mountain":
+                cell = MountainCell()
+                map.cell_List[pos[0]][pos[1]] = cell
+            else:
+                cell = MeadowCell()
+                map.cell_List[pos[0]][pos[1]] = cell
+        j+=1
 
 
 # class GeneratorConstraint:
