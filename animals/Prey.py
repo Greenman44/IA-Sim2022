@@ -31,20 +31,45 @@ class Prey(Animal):
         }
         return actions[action]
     
-    def escape(self):
-        pass
+    def escape(self,map):
+        move = random.choice(self.ActionsSet(map))
+        index = map[self.pos_x,self.pos_y].animals.index(self)
+        map[self.pos_x,self.pos_y].animals.pop(index)
+        self.pos_x = move[0]
+        self.pos_y = move[1]
+        map[move[0],move[1]].animals.append(self)
     
-    def search_food(self):
-        pass
+    def search_food(self,map):
+        move = random.choice(self.ActionsSet(map))
+        index = map[self.pos_x,self.pos_y].animals.index(self)
+        map[self.pos_x,self.pos_y].animals.pop(index)
+        self.pos_x = move[0]
+        self.pos_y = move[1]
+        map[move[0],move[1]].animals.append(self)
 
-    def explore(self):
-        pass
+    def explore(self,map):
+        move = random.choice(self.ActionsSet(map))
+        index = map[self.pos_x,self.pos_y].animals.index(self)
+        map[self.pos_x,self.pos_y].animals.pop(index)
+        self.pos_x = move[0]
+        self.pos_y = move[1]
+        map[move[0],move[1]].animals.append(self)
     
-    def wait(self):
-        pass
+    def wait(self,map):
+        move = random.choice(self.ActionsSet(map))
+        index = map[self.pos_x,self.pos_y].animals.index(self)
+        map[self.pos_x,self.pos_y].animals.pop(index)
+        self.pos_x = move[0]
+        self.pos_y = move[1]
+        map[move[0],move[1]].animals.append(self)
 
-    def eat(self):
-        pass
+    def eat(self,map):
+        move = random.choice(self.ActionsSet(map))
+        index = map[self.pos_x,self.pos_y].animals.index(self)
+        map[self.pos_x,self.pos_y].animals.pop(index)
+        self.pos_x = move[0]
+        self.pos_y = move[1]
+        map[move[0],move[1]].animals.append(self)
 
     def _update_sens_concepts(self, close_pred, close_food, local_food, max_food):
         sens = self.fcm._sens_index_params
