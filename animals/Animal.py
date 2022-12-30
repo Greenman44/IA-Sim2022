@@ -18,7 +18,7 @@ class Animal(object):
         # map[play] = self.icon # The value of the currente animal to draw the map
         return map
     
-    def chose_action(self):
+    def choose_action(self):
         actions = self.fcm.get_action_concepts()
         max = 0
         max_index = 0
@@ -75,10 +75,11 @@ class Animal(object):
 
     def ActionsSet(self,map):                
         stamDict = {(self.pos_x,self.pos_y) : 0}
-        self.ActionsSetDFS(map,self.pos_x,self.pos_y,stamDict,self.data["stamina"],self.data["mobility"])        
-        return stamDict   
+        distDict = {(self.pos_x,self.pos_y) : 0}
+        self.ActionsSetDFS(map,self.pos_x,self.pos_y,stamDict,self.data["stamina"],self.data["mobility"],distDict,0)        
+        return stamDict,distDict   
     
-    def ActionsSetDFS(self, map, cx, cy, stamina,stam, mob):
+    def ActionsSetDFS(self, map, cx, cy, stamina,stam, mob,distances,cdistance):
         dx = [0,0,1,-1]
         dy = [1,-1,0,0]
         for i in range(len(dx)):
@@ -96,4 +97,9 @@ class Animal(object):
                         stamina[(nx,ny)] = cstam
                 except: 
                     stamina[(nx,ny)] = cstam
-                self.ActionsSetDFS(map, nx,ny,stamina,cstam,mob + map[cx,cy].restrictions["mobility"] )
+                try:
+                    if cdistance < distances[(nx,ny)]:
+                        distances[(nx,ny)] = cdistance
+                except:
+                    distances[(nx,ny)] = cdistance
+                self.ActionsSetDFS(map, nx,ny,stamina,cstam,mob + map[cx,cy].restrictions["mobility"],distances,cdistance + 1)

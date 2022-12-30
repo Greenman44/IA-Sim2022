@@ -1,7 +1,7 @@
 from animals.Animal import *
 from Tools import K_BFS_Vision
 from .FCM_package.FCM_Predator import FCM_Predator
-
+import random
 class Predator(Animal):
     def __init__(self,posx,posy):
         super().__init__(posx,posy)
@@ -20,18 +20,23 @@ class Predator(Animal):
             self.fcm.update_concepts()
 
 
-    def make_action(self, action):
+    def make_action(self, action,map):
         actions = {
-            0 : self.hunt(),
-            1 : self.search_food(),
-            2 : self.explore(),
-            3 : self.wait(),
-            4 : self.eat()
+            0 : self.hunt(map),
+            1 : self.search_food(map),
+            2 : self.explore(map),
+            3 : self.wait(map),
+            4 : self.eat(map)
         }
         return actions[action]
     #TODO: action methods
-    def hunt(self):
-        pass
+    def hunt(self,map):
+        move = random.choice(self.ActionsSet(map))
+        index = map[self.pos_x,self.pos_y].animals.index(self)
+        map[self.pos_x,self.pos_y].animals.pop(index)
+        self.pos_x = move[0]
+        self.pos_y = move[1]
+        map[move[0],move[1]].animals.append(self)
 
     def Interaction(self, map: Map, pos):
         animals = map[pos].animals
@@ -61,17 +66,38 @@ class Predator(Animal):
         map[pos].icon = new_icon
 
     
-    def search_food(self):
-        pass
+    def search_food(self,map):
+        move = random.choice(self.ActionsSet(map))
+        index = map[self.pos_x,self.pos_y].animals.index(self)
+        map[self.pos_x,self.pos_y].animals.pop(index)
+        self.pos_x = move[0]
+        self.pos_y = move[1]
+        map[move[0],move[1]].animals.append(self)   
+        
 
-    def explore(self):
-        pass
+    def explore(self,map):
+        move = random.choice(self.ActionsSet(map))
+        index = map[self.pos_x,self.pos_y].animals.index(self)
+        map[self.pos_x,self.pos_y].animals.pop(index)
+        self.pos_x = move[0]
+        self.pos_y = move[1]
+        map[move[0],move[1]].animals.append(self)   
     
-    def wait(self):
-        pass
+    def wait(self,map):
+        move = random.choice(self.ActionsSet(map))
+        index = map[self.pos_x,self.pos_y].animals.index(self)
+        map[self.pos_x,self.pos_y].animals.pop(index)
+        self.pos_x = move[0]
+        self.pos_y = move[1]
+        map[move[0],move[1]].animals.append(self)   
 
-    def eat(self):
-        pass
+    def eat(self,map):
+        move = random.choice(self.ActionsSet(map))
+        index = map[self.pos_x,self.pos_y].animals.index(self)
+        map[self.pos_x,self.pos_y].animals.pop(index)
+        self.pos_x = move[0]
+        self.pos_y = move[1]
+        map[move[0],move[1]].animals.append(self)
 
     def update_sens_concepts(self, close_pred, close_food, local_food, max_food):
         sens = self.fcm._sens_index_params
