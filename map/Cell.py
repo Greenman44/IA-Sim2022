@@ -1,6 +1,9 @@
+from animals.Predator import Predator
+
 
 class Cell:
     def __init__(self):
+        self.pred_food = 0
         self.food = 0
         self.animal = None
         self.restrictions = {
@@ -15,7 +18,12 @@ class Cell:
             return self.animal.icon
         else:
             return self.icon 
-        
+
+    def predator_in(self):
+        for ani in self.animal:
+            if ani is Predator:
+                return True
+        return False
 class WaterCell(Cell):
     def __init__(self):
         self.typeOfCell = "water"

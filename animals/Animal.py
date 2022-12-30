@@ -10,7 +10,7 @@ class Animal(object):
         self.pos_y = pos_y
         self.icon = "A" # Icon to show in the map
 
-    def get_perception(self):
+    def get_perception(self, map):
         pass
     
     def Move(self, map, play):
@@ -18,16 +18,35 @@ class Animal(object):
         # map[play] = self.icon # The value of the currente animal to draw the map
         return map
     
+    def chose_action(self):
+        actions = self.fcm.get_action_concepts()
+        max = 0
+        max_index = 0
+        for i in range(len(actions)):
+            change_action = False
+            if actions[i] > max:
+                change_action = True
+            elif actions[i] == max:
+                #TODO: decidir si cambiar de accion en base a una probabilidad
+                pass
+            if change_action:
+                max = actions[i]
+                max_index = i
+        return max_index
+    
     def Interaction(self, map: Map, pos):
         animal = map[pos].animal
         r = random.random()
         if animal != None:
             if animal.strength < self.strength: # This could be changed for a stocastic thing
                 map[pos].animal = self
+                map[pos].toString = self.icon
             elif animal.strength == self.strength:
                 if r < 0.5:
                     map[pos].animal = self
+                    map[pos].toString = self.icon
         elif map[pos].food != 0:
+            map[pos].toString = self.icon
             self.Recovery()
         else:
             map[pos] = self.icon

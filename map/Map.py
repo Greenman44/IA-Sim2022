@@ -17,6 +17,9 @@ class Map:
         # TODO: Implemnt an IA for create the feature of every cell in the map
         pass
 
+    def get_max_food():
+        return 20, 20
+
 
     def __getitem__(self, items):
         if len(items) == 2 and items[0] >= 0 and items[1] >= 0:
@@ -28,5 +31,4 @@ class Map:
             self.cell_List[items[0]][items[1]] = value
         raise IndexError()   
 
-    def get_cells_with_KDistance(self, init_x : int, init_y: int, k : int):
-        return K_BFS(init_x, init_y, k, self)
+
