@@ -5,13 +5,13 @@ class Cell:
     def __init__(self):
         self.pred_food = 0
         self.food = 0
-        self.animal = None
+        self.animals = set()
         self.restrictions = {
             "vision" : 0,
             "mobility" :  -1,
             "stamina" : 0 
         }
-        self.icon = "C"
+        self.icon = [" C"]
     
     def __str__(self):
         if self.animal != None:
@@ -24,6 +24,14 @@ class Cell:
             if ani is Predator:
                 return True
         return False
+        
+    def __repr__(self):
+        l=[]
+        for animal in self.animals:
+            l.append(animal.icon)
+        return str(l)
+
+        
 class WaterCell(Cell):
     def __init__(self):
         self.typeOfCell = "water"

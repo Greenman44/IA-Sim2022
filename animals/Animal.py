@@ -8,7 +8,7 @@ class Animal(object):
         super(Animal,self).__setattr__("data",{"vision" : 3, "strength" : 1, "mobility" : 2, "stamina" : 2, "initial_stm" : 2})
         self.pos_x = pos_x
         self.pos_y = pos_y
-        self.icon = "A" # Icon to show in the map
+        self.icon = " A" # Icon to show in the map
 
     def get_perception(self, map):
         pass
