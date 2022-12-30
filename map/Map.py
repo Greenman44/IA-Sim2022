@@ -1,5 +1,4 @@
 from map.Cell import Cell
-from Tools import K_BFS
 
 class Map:
     def __init__(self, col_amount : int, row_amount : int):

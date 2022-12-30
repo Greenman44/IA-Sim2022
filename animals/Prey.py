@@ -133,7 +133,7 @@ class Prey(Animal):
 
     def Move(self, map, play):
         return super().Move(map, play)
-    def Interaction(self, map: Map, pos):
+    def Interaction(self, map, pos):
         map[pos].animals.add(self)
         if map[pos].food != 0:
             self.Recovery()

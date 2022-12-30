@@ -33,7 +33,7 @@ class Predator(Animal):
     def hunt(self):
         pass
 
-    def Interaction(self, map: Map, pos):
+    def Interaction(self, map, pos):
         animals = map[pos].animals
         if animals != None:
             self.Combat(animals, map, pos)
@@ -157,7 +157,7 @@ class Lion(Predator):
         self.vision = 6
         map[posx,posy].icon.append(self.icon)
 
-    def Interaction(self, map: Map, pos):
+    def Interaction(self, map, pos):
         return super().Interaction(map, pos)
     def Move(self,map,play):
         return super().Move(map,play)
@@ -175,7 +175,7 @@ class Wolf(Predator):
         self.vision = 8
         map[posx,posy].icon.append(self.icon)
 
-    def Interaction(self, map: Map, pos):
+    def Interaction(self, map, pos):
         return super().Interaction(map, pos)
     def Move(self,map,play):
         return super().Move(map,play)
@@ -193,7 +193,7 @@ class Tiger(Predator):
         self.initial_stm = 7
         map[posx,posy].icon.append(self.icon)
 
-    def Interaction(self, map: Map, pos):
+    def Interaction(self, map, pos):
         return super().Interaction(map, pos)
     def Move(self, map, play):
         return super().Move(map, play)

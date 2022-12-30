@@ -1,5 +1,3 @@
-from map.Map import Map
-from map.Cell import Cell
 import random
 
 
@@ -34,7 +32,7 @@ class Animal(object):
                 max_index = i
         return max_index
     
-    def Interaction(self, map: Map, pos):
+    def Interaction(self, map, pos):
         animal = map[pos].animal
         r = random.random()
         if animal != None:

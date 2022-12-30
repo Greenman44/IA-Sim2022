@@ -1,4 +1,4 @@
-from FCM import FCM
+from .FCM import FCM
 
 class FCM_Predator(FCM):
     def __init__(self):
