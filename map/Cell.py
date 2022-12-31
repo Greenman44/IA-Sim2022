@@ -1,11 +1,11 @@
 from animals.Predator import Predator
-
+from animals.Prey import Prey
 
 class Cell:
-    def __init__(self):
-        self.pred_food = 0
-        self.food = 0
-        self.animals = set()
+    def __init__(self, food = 0, pred_food = 0):
+        self.pred_food = pred_food
+        self.food = food
+        self.animals = []
         self.restrictions = {
             "vision" : 0,
             "mobility" :  -1,
@@ -20,16 +20,22 @@ class Cell:
             return self.icon 
 
     def predator_in(self):
-        for ani in self.animal:
-            if ani is Predator:
+        for ani in self.animals:
+            if type(ani) is Predator:
                 return True
         return False
         
-    def __repr__(self):
-        l=[]
-        for animal in self.animals:
-            l.append(animal.icon)
-        return str(l)
+    def prey_in(self):
+        for ani in self.animals:
+            if type(ani) is Prey:
+                return True
+        return False
+        
+    # def __repr__(self):
+    #     l=[]
+    #     for animal in self.animals:
+    #         l.append(animal.icon)
+    #     return str(l)
 
         
 class WaterCell(Cell):

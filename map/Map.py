@@ -1,5 +1,4 @@
-from map.Cell import Cell
-from Tools import K_BFS
+from .Cell import Cell
 
 class Map:
     def __init__(self, col_amount : int, row_amount : int):
@@ -7,7 +6,10 @@ class Map:
         self.row = row_amount
         self.cell_List = []
     
-    def Builder_Map(self):
+    def Builder_Map(self, map = []):
+        if len(map) > 0:
+            self.cell_List = map
+            return
         for i in range(self.row):
             self.cell_List.append([])
             for j in range(self.col):
@@ -17,7 +19,7 @@ class Map:
         # TODO: Implemnt an IA for create the feature of every cell in the map
         pass
 
-    def get_max_food():
+    def get_max_food(self):
         return 20, 20
 
 

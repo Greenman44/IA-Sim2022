@@ -13,14 +13,15 @@ class FCM:
         self.causal_graph = zeros((self._sensitive_concepts + self._internal_concepts, self._internal_concepts + self._action_concepts))    
     
     def update_concepts(self):
+        old_concepts = self.concepts.copy()
         for i in range(self._sensitive_concepts, self.nodes_amount):
-            self.concepts[i] = self.get_newConcept_value(i)
+            self.concepts[i] = self.get_newConcept_value(i, old_concepts)
 
-    def get_newConcept_value(self, current_concept : int):
-        current = self.concepts[current_concept]
+    def get_newConcept_value(self, current_concept : int, old_concepts):
+        current = old_concepts[current_concept]
         rows = self.causal_graph.shape[0]
         for i in range(rows):
-            current += self.causal_graph[i, current_concept] * self.concepts[i]
+            current += self.causal_graph[i, current_concept - self._sensitive_concepts] * old_concepts[i]
         result = expit(array([current]))
         return result[0]
 
@@ -31,7 +32,7 @@ class FCM:
         return self.causal_graph[x,y]
 
     def get_action_concepts(self):
-        return self.concepts[self._action_concepts-1:]
+        return self.concepts[self._sensitive_concepts+ self._internal_concepts:]
     
     def fuzzy(self, parameter, interval : tuple, inv=False):
         """method for fuzzification 
