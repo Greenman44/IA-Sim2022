@@ -20,12 +20,16 @@ class MapConstraint(Constraint[str,str]):
         return assignment[self.cell_list1] != assignment[self.cell_list2]
 
 def RandomCellForGenerate(map, amountofCells:int):
-        temp: tuple(int,int)
-        listOfConstraintCells = [[],[],[],[],[]]
+        temp: list[tuple(int,int)]
+        listOfConstraintCells = []
         for i in range(5):
+            listOfConstraintCells.append([])
             posRow = randint(0,len(map.cell_List)-1)
             posCol = randint(0,len(map.cell_List[0])-1)
-            restricCell = K_BFS_Vision(posRow,posCol,amountofCells,map)
+            # if i == 0:
+            restricCell = DFS_Rare_For_Generate_Cells(posRow,posCol,amountofCells,map)
+            # else:
+            #     restricCell = K_BFS_Vision(posRow, posCol, amountofCells, map)
             for pos in restricCell.keys():
                 listOfConstraintCells[i].append(pos)
             i += 1
@@ -64,6 +68,7 @@ def ConvertListCell_in_SolutionCell(dictSol : dict[str,str], pos_List,map):
                 cell = MeadowCell()
                 map.cell_List[pos[0]][pos[1]] = cell
         j+=1
+
 
 
 # class GeneratorConstraint:

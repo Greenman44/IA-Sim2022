@@ -15,11 +15,12 @@ from iAalgorithm.CSP import CSP, Constraint
 # b[0,0] = 1
 # print(np.argmax(a))
 
-map = Map(6,6)
+map = Map(20,20)
 map.Builder_Map()
-vara = RandomCellForGenerate(map,1)
+vara = RandomCellForGenerate(map,50)
 variables = ["lista1", "lista2", "lista3", "lista4", "lista5"]
-domain : Dict[str,list[str]] ={}
+domain : Dict[str,list[str]] = {}
+
 
 
 for var in variables:
@@ -36,12 +37,15 @@ solution = csp.backtracking_search()
 ConvertListCell_in_SolutionCell(solution,vara,map)
 
 listOfCell = [] 
-
+i=0
 for lista in map.cell_List:
+    listOfCell.append([])
     for cell in lista:
-        listOfCell.append(cell.typeOfCell)
+        listOfCell[i].append(cell.icon)
+    i+=1
 
-print(listOfCell)
+for i in range(len(listOfCell)):
+    print(listOfCell[i])
 
 # Make a boolean mask for vara to create the kind of cells that the csp give us 
 
