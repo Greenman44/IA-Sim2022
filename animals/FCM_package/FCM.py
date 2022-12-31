@@ -1,4 +1,5 @@
 from numpy import array, zeros 
+from scipy.special import expit
 
 
 

@@ -48,6 +48,25 @@ for lista in map.cell_List:
 for i in range(len(listOfCell)):
     print(listOfCell[i])
 
+print("Primer Mapa")
+print(" ")
+
+myMap = MapGenerate(map.cell_List)
+myMap = myMap.generate()
+
+listOfCell = [] 
+i=0
+for lista in myMap:
+    listOfCell.append([])
+    for cell in lista:
+        listOfCell[i].append(cell.icon)
+    i+=1
+
+for i in range(len(listOfCell)):
+    print(listOfCell[i])
+
+print("Segundo Mapa")
+print(" ")
 # Make a boolean mask for vara to create the kind of cells that the csp give us 
 
 
