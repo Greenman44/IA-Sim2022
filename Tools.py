@@ -39,7 +39,7 @@ def DFS_Rare_For_Generate_Cells(init_x, init_y, k, map):
         current_pos = queue.pop(0)
         if param==0:
             break
-        for i in range(2):
+        for i in range(3):
             new_pos = (current_pos[0] + dx[randint(0,len(dx)-1)], current_pos[1] + dy[randint(0,len(dy)-1)])
             try:
                 cell = map[new_pos]

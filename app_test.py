@@ -18,9 +18,9 @@ import numpy as np
 # b[0,0] = 1
 # print(np.argmax(a))
 
-map = Map(17,17)
+map = Map(50,50)
 map.Builder_Map()
-vara = RandomCellForGenerate(map,41)
+vara = RandomCellForGenerate(map,700)
 variables = ["lista1", "lista2", "lista3", "lista4", "lista5"]
 domain : Dict[str,list[str]] = {}
 
@@ -81,7 +81,7 @@ print(" ")
 
 myMap = MapGenerate(map.cell_List)
 map = None
-for i in range(3):
+for i in range(1):
     map = myMap.generate()
     myMap = MapGenerate(map)
 

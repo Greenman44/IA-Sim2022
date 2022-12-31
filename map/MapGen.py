@@ -17,18 +17,18 @@ class MapGenerate :
         for i in range(self.numRows):
             for j in range(self.numCols):
                 numTypes = [0 for i in range(len(self.cellTypes))]
-                for k in range(len(dx)):
-                    if self.correctIndex(i,j, i + dx[k], j + dy[k]):
-                        if(type(self.map[i][j]) == Cell):   
-                            if(type(self.map[i + dx[k]][j + dy[k]]) != Cell):
-                                ct = self.cellTypes.index(type(self.map[i + dx[k]][ j + dy[k]]))
-                                numTypes[ct] += 1
-                        else: continue
-                toTake = [i for i in self.cellTypes]
-                for z in range(len(self.cellTypes)):
-                    for x in  range(int(numTypes[z])):
-                        toTake.append(self.cellTypes[z])
-                self.map[i][j] = random.choice(toTake)()
+                if self.map[i][j].typeOfCell == "cell":   
+                    for k in range(len(dx)):
+                        if self.correctIndex(i,j, i + dx[k], j + dy[k]):
+                                if(type(self.map[i + dx[k]][j + dy[k]]) != Cell):
+                                    ct = self.cellTypes.index(type(self.map[i + dx[k]][ j + dy[k]]))
+                                    numTypes[ct] += 1
+                            
+                    toTake = [i for i in self.cellTypes]
+                    for z in range(len(self.cellTypes)):
+                        for x in  range(int(numTypes[z])):
+                            toTake.append(self.cellTypes[z])
+                    self.map[i][j] = random.choice(toTake)()
         return self.map          
 
     def correctIndex(self, x, y, dx, dy):
