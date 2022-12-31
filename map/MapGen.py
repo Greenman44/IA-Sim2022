@@ -19,9 +19,11 @@ class MapGenerate :
                 numTypes = [0 for i in range(len(self.cellTypes))]
                 for k in range(len(dx)):
                     if self.correctIndex(i,j, i + dx[k], j + dy[k]):
-                        if(type(self.map[i + dx[k]][j + dy[k]]) != Cell):
-                           ct = self.cellTypes.index(type(self.map[i + dx[k]][ j + dy[k]]))
-                           numTypes[ct] += 1
+                        if(type(self.map[i][j]) == Cell):   
+                            if(type(self.map[i + dx[k]][j + dy[k]]) != Cell):
+                                ct = self.cellTypes.index(type(self.map[i + dx[k]][ j + dy[k]]))
+                                numTypes[ct] += 1
+                        else: continue
                 toTake = [i for i in self.cellTypes]
                 for z in range(len(self.cellTypes)):
                     for x in  range(int(numTypes[z])):
