@@ -6,7 +6,8 @@ from animals.Prey import *
 from typing import Dict, List, Optional
 from iAalgorithm.CSP_Map import *
 from iAalgorithm.CSP import CSP, Constraint
-
+from map.MapGen import MapGenerate
+import numpy as np
 
 # import numpy as np
 
