@@ -1,4 +1,4 @@
-
+from random import randint, random
 
 def K_BFS_Vision(init_x, init_y, k, map):
     dx = [-1, -1, 0, 1, 1, 1, 0, -1]
@@ -25,6 +25,10 @@ def K_BFS_Vision(init_x, init_y, k, map):
                 queue.append(new_pos)
     
     return distance
+
+            
+            
+
 
                 
 

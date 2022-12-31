@@ -1,5 +1,7 @@
 from typing import Generic, TypeVar, Dict, List, Optional
 from abc import ABC, abstractmethod
+from Tools import *
+from random import randint
 
 V = TypeVar('V') # variable type
 D = TypeVar('D') # domain type
@@ -65,3 +67,5 @@ class CSP(Generic[V, D]):
                 if result is not None:
                     return result
         return None
+    
+    

@@ -32,7 +32,7 @@ class Animal(object):
                 max_index = i
         return max_index
     
-    def Interaction(self, map,  pos):
+    def Interaction(self, map, pos):
         animal = map[pos].animal
         r = random.random()
         if animal != None:
