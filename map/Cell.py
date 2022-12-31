@@ -1,6 +1,7 @@
 from animals.Predator import Predator
 from animals.Prey import Prey
 
+
 class Cell:
     def __init__(self, food = 0, pred_food = 0):
         self.pred_food = pred_food
