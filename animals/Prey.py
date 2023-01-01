@@ -1,6 +1,7 @@
 from animals.Animal import *
 from Tools import K_BFS_Vision
 from .FCM_package.FCM_Prey import FCM_Prey
+import numpy as np
 class Prey(Animal):
     def __init__(self, posx, posy):
         super().__init__(posx, posy)
@@ -9,15 +10,22 @@ class Prey(Animal):
         self.mobility = 3
         self.initial_stm = 5
         self.stamina = 5
+        self.meat_dropped = 7
 
     def get_perception(self, map):
         current_vision = (
-            self.vision + map[self.pos_x, self.pos_y].restrictions["vision"]
+            self.vision + map[self.pos].restrictions["vision"]
         )
-        cells_around = K_BFS_Vision(self.pos_x, self.pos_y, current_vision, map)
-        close_pred, close_food = self.get_close_predFood(cells_around, map)
-        local_food = map[self.pos_x, self.pos_y].food
-        self._update_sens_concepts(close_pred, close_food, local_food, map.get_max_food()[0])
+        cells_around = K_BFS_Vision(self.position.x, self.position.y, current_vision, map)
+        self.close_pred, self.close_food = self.get_close_predFood(cells_around, map)
+        local_food = map[self.position].food
+        self._update_sens_concepts(
+            self.close_pred[0][1] if len(self.close_pred) > 0 else 20,
+            self.close_food[0][1] if len(self.close_food) > 0 else 20,
+            local_food,
+            map.get_max_food()[0]
+        )
+
         for i in range(3):
             self.fcm.update_concepts()
 
@@ -36,54 +44,47 @@ class Prey(Animal):
         return actions[action](map)
     
     def escape(self,map):
-        moves, other = self.ActionsSet(map)
-        move = random.choice(list(moves.keys()))
-        index = map[self.pos_x,self.pos_y].animals.index(self)
-        map[self.pos_x,self.pos_y].animals.pop(index)
-        self.pos_x = move[0]
-        self.pos_y = move[1]
-        self.stamina -= moves[move] - 1
-        map[move[0],move[1]].animals.append(self)
-    
+        moves_stamina, moves_distance = self.ActionsSet(map)
+        if len(self.close_pred) == 0:
+            self.random_move(moves_stamina, map)
+            return
+        average_x = 0
+        average_y = 0
+        for pred in self.close_pred:
+            average_x += pred[0][0]
+            average_y += pred[0][1]
+        pos_average = (
+            int(np.round(average_x/len(self.close_pred))), 
+            int(np.round(average_y/len(self.close_pred)))
+        )
+        moves = self._get_farthest_positions(moves_distance , pos_average)
+        moves_toMake = {i : moves_stamina[i] for i in moves}
+        self.random_move(moves_toMake, map)
+
     def search_food(self,map):
-        moves, other = self.ActionsSet(map)
-        move = random.choice(list(moves.keys()))
-        index = map[self.pos_x,self.pos_y].animals.index(self)
-        map[self.pos_x,self.pos_y].animals.pop(index)
-        self.pos_x = move[0]
-        self.pos_y = move[1]
-        self.stamina -= moves[move] - 1
-        map[move[0],move[1]].animals.append(self)
+        moves_stamina, moves_distance = self.ActionsSet(map)
+        for cell in self.close_food:
+            if cell[0] in moves_stamina:
+                self.Move(map, cell[0], moves_stamina[cell[0]])
+                return
+        self.random_move(moves_stamina, map) 
 
     def explore(self,map):
         moves, other = self.ActionsSet(map)
-        move = random.choice(list(moves.keys()))
-        index = map[self.pos_x,self.pos_y].animals.index(self)
-        map[self.pos_x,self.pos_y].animals.pop(index)
-        self.pos_x = move[0]
-        self.pos_y = move[1]
-        self.stamina = moves[move] - 1
-        map[move[0],move[1]].animals.append(self)
+        self.random_move(moves, map)
     
     def wait(self,map):
-        moves, other = self.ActionsSet(map)
-        move = random.choice(list(moves.keys()))
-        index = map[self.pos_x,self.pos_y].animals.index(self)
-        map[self.pos_x,self.pos_y].animals.pop(index)
-        self.pos_x = move[0]
-        self.pos_y = move[1]
-        self.stamina = moves[move] - 1
-        map[move[0],move[1]].animals.append(self)
+        self.stamina -= 1
 
     def eat(self,map):
-        moves, other = self.ActionsSet(map)
-        move = random.choice(list(moves.keys()))
-        index = map[self.pos_x,self.pos_y].animals.index(self)
-        map[self.pos_x,self.pos_y].animals.pop(index)
-        self.pos_x = move[0]
-        self.pos_y = move[1]
-        self.stamina = moves[move] - 1
-        map[move[0],move[1]].animals.append(self)
+        food_need = self.initial_stm - self.stamina
+        map[self.position].food -= food_need
+        if map[self.position].food < 0:
+            self.stamina = self.initial_stm + map[self.position].food
+            map[self.position].food = 0
+        else:
+            self.stamina = self.initial_stm
+
 
     def _update_sens_concepts(self, close_pred, close_food, local_food, max_food):
         sens = self.fcm._sens_index_params
@@ -152,27 +153,42 @@ class Prey(Animal):
             )
         )
 
+    def _get_farthest_pos(self, moves_distance : dict, pos_average : tuple):
+        result_moves = []
+        max_distance = 0
+        for cell in moves_distance.keys():
+            pos = Position(cell[0], cell[1])
+            distance = pos.get_distance(pos_average) 
+            if distance > max_distance:
+                max_distance = distance
+                result_moves.clear()
+                result_moves.append(cell)
+            elif distance == max_distance:
+                result_moves.append(cell)
+        
+        return result_moves
     
-
     def get_close_predFood(self, cells_around: dict, map):
-        close_pred_distance = 10
-        close_food_distance = 10
+        close_pred_distance_list = []
+        close_pred_position_list = []
+        close_food_distance_list = []
+        close_food_position_list = []
         for cell in cells_around.keys():
-            distance = abs(self.pos_x - cell[0]) + abs(self.pos_y - cell[1])
+            distance = self.position.get_distance(cell)
             if (
                 map[cell].predator_in()
-                and  distance < close_pred_distance
             ):
-                close_pred_distance = distance
-            if cell != (self.pos_x,self.pos_y) and map[cell].food > 0 and distance < close_food_distance:
-                close_food_distance = distance
+                close_pred_distance_list.append(distance)
+                close_pred_position_list.append(cell)
+            if cell != (self.position.x,self.position.y) and map[cell].food > 0:
+                close_food_distance_list.append(distance)
+                close_food_position_list.append(cell)
 
-        if map[self.pos_x, self.pos_y].predator_in():
-            close_pred_distance = 0
-        return close_pred_distance, close_food_distance
+        return (
+            list(zip(close_pred_position_list, close_pred_distance_list)), 
+            list(zip(close_food_position_list, close_food_distance_list))
+        )
 
-    def Move(self, map, play):
-        return super().Move(map, play)
     def Interaction(self, map, pos):
         map[pos].animals.add(self)
         if map[pos].food != 0:

@@ -16,8 +16,8 @@ class Cell:
         self.icon = 'C'
     
     def __str__(self):
-        if self.animal != None:
-            return self.animal.icon
+        if len(self.animals) > 0:
+            return self.animals.icon
         else:
             return self.icon 
 

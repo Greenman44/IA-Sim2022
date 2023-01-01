@@ -1,36 +1,48 @@
 import random
-
+from Tools import Position
+from numpy import sum
 
 class Animal(object):
     def __init__(self, pos_x, pos_y):
-        super(Animal,self).__setattr__("data",{"vision" : 3, "strength" : 1, "mobility" : 2, "stamina" : 2, "initial_stm" : 2})
-        self.pos_x = pos_x
-        self.pos_y = pos_y
+        super(Animal,self).__setattr__("data",{"vision" : 3, "strength" : 1, "mobility" : 3, "stamina" : 3, "initial_stm" : 3})
+        self.position = Position(pos_x,pos_y)
         self.icon = " A" # Icon to show in the map
 
     def get_perception(self, map):
         pass
     
-    def Move(self, map, play):
-        self.Interaction(map, play)
-        # map[play] = self.icon # The value of the currente animal to draw the map
-        return map
+    def random_move(self, moves, map):
+        move = random.choice(list(moves.keys()))
+        new_pos = Position(move[0], move[1])
+        self.Move(map, new_pos, moves[move])
+        
+
+    def Move(self, map, new_pos, expen_stamina):
+        index = map[self.position].animals.index(self)
+        map[self.position].animals.pop(index)
+        self.position = new_pos
+        self.stamina -= expen_stamina - 1
+        map[self.position].animals.append(self)
     
     def choose_action(self):
-        actions = self.fcm.get_action_concepts()
-        max = 0
-        max_index = 0
+        actions = list(self.fcm.get_action_concepts())
+        sum_actions = sum(actions)
         for i in range(len(actions)):
-            change_action = False
-            if actions[i] > max:
-                change_action = True
-            elif actions[i] == max:
-                #TODO: decidir si cambiar de accion en base a una probabilidad
-                pass
-            if change_action:
-                max = actions[i]
-                max_index = i
-        return max_index
+            actions[i] = actions[i] / sum_actions
+        r = random.random()
+        inf = 0
+        sup = 1
+        for i in range(len(actions)):
+            if actions[i] > inf and actions[i] < r:
+                inf = actions[i]
+            if actions[i] < sup and actions[i] > r:
+                sup = actions[i]
+        try:
+            return actions.index(inf)
+        except:
+            return 0
+
+
     
     def Interaction(self, map, pos):
         animal = map[pos].animal
@@ -72,9 +84,9 @@ class Animal(object):
 
 
     def ActionsSet(self,map):                
-        stamDict = {(self.pos_x,self.pos_y) : 0}
-        distDict = {(self.pos_x,self.pos_y) : 0}
-        self.ActionsSetDFS(map,self.pos_x,self.pos_y,stamDict,self.data["stamina"],self.data["mobility"],distDict,0)        
+        stamDict = {(self.position.x,self.position.y) : 0}
+        distDict = {(self.position.x,self.position.y) : 0}
+        self.ActionsSetDFS(map,self.position.x,self.position.y,stamDict,self.data["stamina"],self.data["mobility"],distDict,1)        
         return stamDict,distDict   
     
     def ActionsSetDFS(self, map, cx, cy, stamina,stam, mob,distances,cdistance):

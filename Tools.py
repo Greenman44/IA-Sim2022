@@ -1,5 +1,5 @@
 from random import randint, random
-
+from  typing import Tuple
 def K_BFS_Vision(init_x, init_y, k, map):
     dx = [-1, -1, 0, 1, 1, 1, 0, -1]
     dy = [0, 1, 1, 1, 0, -1, -1, -1]
@@ -52,9 +52,19 @@ def DFS_Rare_For_Generate_Cells(init_x, init_y, k, map):
     
     return way
 
-            
-            
+class Position:
+    def __init__(self, x : int, y : int):
+        self.x = x
+        self.y = y
 
+    def get_distance(self, pos):
+        diff_x = abs(self.x - pos[0])
+        diff_y = abs(self.y - pos[1])
+        return diff_x + diff_y            
 
-                
-
+    def get_direction(self, pos):
+        diff_x = pos[0] - self.x
+        diff_y = pos[1] - self.y
+        dir_x = diff_x/abs(diff_x) if diff_x != 0 else 0
+        dir_y = diff_y/abs(diff_y) if diff_y != 0 else 0
+        return int(dir_x), int(dir_y)
