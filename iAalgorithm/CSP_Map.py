@@ -22,7 +22,7 @@ class MapConstraint(Constraint[str,str]):
 def RandomCellForGenerate(map, amountofCells:int):
         temp: list[tuple(int,int)]
         listOfConstraintCells = []
-        for i in range(5):
+        for i in range(4):
             listOfConstraintCells.append([])
             posRow = randint(0,len(map.cell_List)-1)
             posCol = randint(0,len(map.cell_List[0])-1)
@@ -33,6 +33,23 @@ def RandomCellForGenerate(map, amountofCells:int):
             for pos in restricCell.keys():
                 listOfConstraintCells[i].append(pos)
             i += 1
+        listOfConstraintCells.append([])
+        bool = []
+        for i in range(len(map.cell_List)):
+            for j in range(len(map.cell_List[i])):
+                for z in range(4):
+                    try:
+                        a = listOfConstraintCells[z].index((i,j))
+                        bool.append(False)
+                    except:
+                        bool.append(True)
+                if bool.__contains__(False):
+                    bool.clear()
+                    continue
+                else:
+                    bool.clear()
+                    listOfConstraintCells[4].append((i,j))
+                    
         return listOfConstraintCells
 
 def Create_Constraint_for_Map(cellsConstr, csp: CSP, i:int):
