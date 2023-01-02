@@ -1,5 +1,10 @@
+<<<<<<< Updated upstream
 from random import randint, random
 from  typing import Tuple
+=======
+from random import randint, next
+
+>>>>>>> Stashed changes
 def K_BFS_Vision(init_x, init_y, k, map):
     dx = [-1, -1, 0, 1, 1, 1, 0, -1]
     dy = [0, 1, 1, 1, 0, -1, -1, -1]
@@ -52,6 +57,7 @@ def DFS_Rare_For_Generate_Cells(init_x, init_y, k, map):
     
     return way
 
+<<<<<<< Updated upstream
 class Position:
     def __init__(self, x : int, y : int):
         self.x = x
@@ -68,3 +74,26 @@ class Position:
         dir_x = diff_x/abs(diff_x) if diff_x != 0 else 0
         dir_y = diff_y/abs(diff_y) if diff_y != 0 else 0
         return int(dir_x), int(dir_y)
+=======
+            
+def AnimalDistribution(map,numPreys, numPredators):
+    numCols = len(map[0])
+    numRows = len(map) 
+    for i in range(numPreys):
+        x = randint(0,numRows - 1)
+        y = randint(0,numCols - 1)       
+        map[x][y] = "AQUI SE CREA LA PRESA"
+    
+    for i in range(numPredators):
+        x = randint(0, numRows - 1)
+        y = randint(0, numCols - 1)
+        map[x][y] = "AQUI SE CREA EL DEPREDADOR"
+
+                
+def GrassDistribution(map ,grassprob = 18, maxgrass = 20):
+    for i in len(map):
+        for j in range(len(map[0])):
+            prob = next(0,(len(map) * next(0,len(map))) /(len(map) * next(0,len(map)) ))
+            if prob > grassprob:
+                map[i][j] += next(0,maxgrass)
+>>>>>>> Stashed changes
