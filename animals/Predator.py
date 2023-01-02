@@ -8,9 +8,9 @@ class Predator(Animal):
     def __init__(self,posx,posy):
         super().__init__(posx,posy)
         self.vision = 7
-        self.mobility = 5
-        self.initial_stm = 7
-        self.stamina = 7
+        self.mobility = 6
+        self.initial_stm = 15
+        self.stamina = 15
         self.fcm = FCM_Predator() 
     
     def get_perception(self, map):

@@ -6,10 +6,10 @@ class Prey(Animal):
     def __init__(self, posx, posy):
         super().__init__(posx, posy)
         self.fcm = FCM_Prey()
-        self.vision = 4
-        self.mobility = 3
-        self.initial_stm = 5
-        self.stamina = 5
+        self.vision = 5
+        self.mobility = 4
+        self.initial_stm = 10
+        self.stamina = 10
         self.meat_dropped = 7
 
     def get_perception(self, map):
@@ -207,7 +207,7 @@ class Deer(Prey):
         self.stamina = 6
         self.initial_stm = 6
         self.vision = 9
-        map[posx,posy].icon.append(self.icon)
+       
     def Move(self,map,play):
         return super().Move(map,play)
     def Recovery(self):
@@ -221,7 +221,7 @@ class Hare(Prey):
         self.stamina = 4
         self.initial_stm = 4
         self.vision = 4
-        map[posx,posy].icon.append(self.icon)
+       
     def Move(self,map,play):
         return super().Move(map,play)
     def Recovery(self):
@@ -235,7 +235,7 @@ class Zebra(Prey):
         self.stamina = 6
         self.initial_stm = 6
         self.vision = 5
-        map[posx,posy].icon.append(self.icon)
+        
     def Move(self,map,play):
         return super().Move(map,play)
     def Recovery(self):
@@ -249,7 +249,7 @@ class Monkey(Prey):
         self.stamina = 5
         self.initial_stm = 5
         self.vision = 6
-        map[posx,posy].icon.append(self.icon)
+        
     def Move(self,map,play):
         return super().Move(map,play)
     def Recovery(self):
