@@ -1,12 +1,14 @@
 from .Cell import Cell
+from colorama import Fore, Back, Style
 
 class Map:
     def __init__(self, col_amount : int, row_amount : int):
         self.col = col_amount
         self.row = row_amount
         self.cell_List = []
+        self.Builder_self()
     
-    def Builder_Map(self, map = []):
+    def Builder_self(self, map = []):
         if len(map) > 0:
             self.cell_List = map
             return
@@ -16,11 +18,41 @@ class Map:
                 self.cell_List[i].append(Cell())
             
     def IA_Cell_Builder(self):
-        # TODO: Implemnt an IA for create the feature of every cell in the map
+        # TODO: Implemnt an IA for create the feature of every cell in the self
         pass
 
     def get_max_food(self):
         return 20, 20
+
+    def pretty_self(self):
+        for i in range(self.row):
+            for j in range(self.col):
+                if j==self.col-1:
+                    # if self[i,j].animals != None:
+                    #     print(self[i,j].animals[0].icon)
+                    if self[i,j].icon == "P":
+                        print(Fore.YELLOW,self[i,j].icon)
+                    elif self[i,j].icon == "W":
+                        print(Fore.BLUE,self[i,j].icon)
+                    elif self[i,j].icon == "M":
+                        print(Fore.MAGENTA,self[i,j].icon)
+                    elif self[i,j].icon == "F":
+                        print(Fore.RED,self[i,j].icon)
+                    elif self[i,j].icon == "H":
+                        print(Fore.GREEN,self[i,j].icon)
+                else:
+                    # if self[i,j].animals != None:
+                    #     print(self[i,j].animals[0].icon, end="")
+                    if self[i,j].icon == "P":
+                        print(Fore.YELLOW, self[i,j].icon, end="")
+                    elif self[i,j].icon == "W":
+                        print(Fore.BLUE, self[i,j].icon, end="")
+                    elif self[i,j].icon == "M":
+                        print(Fore.MAGENTA, self[i,j].icon, end="")
+                    elif self[i,j].icon == "F":
+                        print(Fore.RED, self[i,j].icon, end="")
+                    elif self[i,j].icon == "H":
+                        print(Fore.GREEN, self[i,j].icon, end="")
 
 
     def __getitem__(self, items):

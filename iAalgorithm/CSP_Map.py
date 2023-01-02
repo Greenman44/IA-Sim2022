@@ -34,20 +34,15 @@ def RandomCellForGenerate(map, amountofCells:int):
                 listOfConstraintCells[i].append(pos)
             i += 1
         listOfConstraintCells.append([])
-        bool = []
         for i in range(len(map.cell_List)):
             for j in range(len(map.cell_List[i])):
                 for z in range(4):
                     try:
                         a = listOfConstraintCells[z].index((i,j))
-                        bool.append(False)
+                        break
                     except:
-                        bool.append(True)
-                if bool.__contains__(False):
-                    bool.clear()
-                    continue
+                        continue
                 else:
-                    bool.clear()
                     listOfConstraintCells[4].append((i,j))
                     
         return listOfConstraintCells
