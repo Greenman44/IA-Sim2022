@@ -2,26 +2,50 @@ import random
 from Tools import Position
 from numpy import sum
 
-class Animal(object):
+class Animal:
     def __init__(self, pos_x, pos_y):
-        super(Animal,self).__setattr__("data",{"vision" : 3, "strength" : 1, "mobility" : 3, "stamina" : 3, "initial_stm" : 3})
+        self.vision = 3 
+        self.strength = 1 
+        self.mobility = 3
+        self.stamina = 3
+        self.initial_stm = 3
         self.position = Position(pos_x,pos_y)
         self.icon = " A" # Icon to show in the map
 
     def get_perception(self, map):
         pass
-    
+
+    def drop_meat(self, map):
+        map[self.position].food += self.meat_dropped if (map[self.position].food + self.meat_dropped) <= map.get_max_food()[0] else map.get_max_food()[0] - self.meat_dropped 
+
+
     def random_move(self, moves, map):
+        if len(moves) == 0:
+            print("********************")
+            print(f"{self} NO PUDE MOVERME")
+            print("********************")
+            self.stamina -= 1
+            if self.stamina < 0:
+                self.drop_meat(map)
+            return
         move = random.choice(list(moves.keys()))
         new_pos = Position(move[0], move[1])
         self.Move(map, new_pos, moves[move])
         
+    def _get_farthest_pos(self, moves_distance : dict, pos_average : tuple):
+        pass
 
     def Move(self, map, new_pos, expen_stamina):
+        print("********************")
+        print(f"{self} ESTOY MOVIENDOME A LA CASILLA: ({new_pos.x}, {new_pos.y})")
+        print("********************")
         index = map[self.position].animals.index(self)
         map[self.position].animals.pop(index)
         self.position = new_pos
-        self.stamina -= expen_stamina - 1
+        self.stamina = expen_stamina - 1
+        if self.stamina < 0:
+            self.drop_meat(map)
+            return
         map[self.position].animals.append(self)
     
     def choose_action(self):
@@ -37,11 +61,12 @@ class Animal(object):
                 inf = actions[i]
             if actions[i] < sup and actions[i] > r:
                 sup = actions[i]
-        try:
+        if sup == 1:
             return actions.index(inf)
-        except:
+        if inf == 0:
             return 0
-
+        
+        return actions.index(sup)
 
     
     def Interaction(self, map, pos):
@@ -61,14 +86,6 @@ class Animal(object):
         else:
             map[pos] = self.icon
 
-    def __setattr__(self, attr, value):
-        self.data[attr]=value
-
-    def __getattr__(self, attr):
-        try:
-            return self.data[attr]
-        except KeyError:
-            raise AttributeError
 
     def __getitem__(self, key):
         try:
@@ -76,7 +93,8 @@ class Animal(object):
         except:
             raise KeyError
 
-
+    def __str__(self) -> str:
+        return type(self).__name__ + " " + str((self.position.x,self.position.y))
    
 
     def Recovery(self):
@@ -86,7 +104,7 @@ class Animal(object):
     def ActionsSet(self,map):                
         stamDict = {(self.position.x,self.position.y) : 0}
         distDict = {(self.position.x,self.position.y) : 0}
-        self.ActionsSetDFS(map,self.position.x,self.position.y,stamDict,self.data["stamina"],self.data["mobility"],distDict,1)        
+        self.ActionsSetDFS(map,self.position.x,self.position.y,stamDict,self.stamina,self.mobility,distDict,1)        
         return stamDict,distDict   
     
     def ActionsSetDFS(self, map, cx, cy, stamina,stam, mob,distances,cdistance):

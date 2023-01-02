@@ -1,10 +1,16 @@
+import random
+
+from animals.Prey import Prey
+from animals.Predator import Predator
 from .Cell import Cell
 from colorama import Fore, Back, Style
 
 class Map:
-    def __init__(self, col_amount : int, row_amount : int):
+    def __init__(self, col_amount : int, row_amount : int, max_prey_food, max_pred_food):
         self.col = col_amount
         self.row = row_amount
+        self.max_prey_food = max_prey_food
+        self.max_pred_food = max_pred_food
         self.cell_List = []
         self.Builder_self()
     
@@ -22,7 +28,7 @@ class Map:
         pass
 
     def get_max_food(self):
-        return 20, 20
+        return (self.max_prey_food, self.max_pred_food)
 
     def pretty_self(self):
         for i in range(self.row):
@@ -53,6 +59,30 @@ class Map:
                         print(Fore.RED, self[i,j].icon, end="")
                     elif self[i,j].icon == "H":
                         print(Fore.GREEN, self[i,j].icon, end="")
+
+    def SetAnimalDistribution(self,numPreys, numPredators):
+        participants = []
+        for i in range(numPreys):
+            x = random.randint(0,self.row - 1)
+            y = random.randint(0,self.col - 1)
+            prey = Prey(x,y)       
+            self[x,y].animals.append(prey)
+            participants.append(prey)
+
+        for i in range(numPredators):
+            x = random.randint(0, self.row - 1)
+            y = random.randint(0, self.col - 1)
+            pred = Predator(x,y)
+            self[x,y].animals.append(pred)
+            participants.append(pred)
+        return participants
+                
+    def SetGrassDistribution(self ,grassprob = 0.18):
+        for i in range(self.row):
+            for j in range(self.col):
+                prob = (random.randint(0,self.row*self.col)) /(self.row * self.col)
+                if prob > grassprob:
+                    self[i,j].food += random.randint(0,self.max_prey_food)
 
 
     def __getitem__(self, items):

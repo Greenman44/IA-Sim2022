@@ -6,15 +6,16 @@ class Prey(Animal):
     def __init__(self, posx, posy):
         super().__init__(posx, posy)
         self.fcm = FCM_Prey()
-        self.vision = 5
+        self.strength = 2
+        self.vision = 3
         self.mobility = 4
-        self.initial_stm = 10
-        self.stamina = 10
-        self.meat_dropped = 7
+        self.initial_stm = 15
+        self.stamina = 15
+        self.meat_dropped = 20
 
     def get_perception(self, map):
         current_vision = (
-            self.vision + map[self.pos].restrictions["vision"]
+            self.vision + map[self.position].restrictions["vision"]
         )
         cells_around = K_BFS_Vision(self.position.x, self.position.y, current_vision, map)
         self.close_pred, self.close_food = self.get_close_predFood(cells_around, map)
@@ -29,10 +30,8 @@ class Prey(Animal):
         for i in range(3):
             self.fcm.update_concepts()
 
-        print(self.fcm.concepts)
     
     
-
     def make_action(self, action, map):
         actions = {
             0 : self.escape,
@@ -44,6 +43,9 @@ class Prey(Animal):
         return actions[action](map)
     
     def escape(self,map):
+        print("********************")
+        print(f"{self} ESTOY ESCAPANDO")
+        print("********************")
         moves_stamina, moves_distance = self.ActionsSet(map)
         if len(self.close_pred) == 0:
             self.random_move(moves_stamina, map)
@@ -57,33 +59,53 @@ class Prey(Animal):
             int(np.round(average_x/len(self.close_pred))), 
             int(np.round(average_y/len(self.close_pred)))
         )
-        moves = self._get_farthest_positions(moves_distance , pos_average)
+        moves = self._get_farthest_pos(moves_distance , pos_average)
         moves_toMake = {i : moves_stamina[i] for i in moves}
         self.random_move(moves_toMake, map)
 
     def search_food(self,map):
+        print("********************")
+        print(f"{self} ESTOY BUSCANDO COMIDA")
+        print("********************")
         moves_stamina, moves_distance = self.ActionsSet(map)
         for cell in self.close_food:
             if cell[0] in moves_stamina:
-                self.Move(map, cell[0], moves_stamina[cell[0]])
+                self.Move(map, Position(cell[0][0], cell[0][1]), moves_stamina[cell[0]])
                 return
         self.random_move(moves_stamina, map) 
 
     def explore(self,map):
+        print("********************")
+        print(f"{self} ESTOY EXPLORANDO")
+        print("********************")
         moves, other = self.ActionsSet(map)
+        moves.pop((self.position.x, self.position.y))
         self.random_move(moves, map)
     
     def wait(self,map):
+        print("********************")
+        print(f"{self} ESTOY ESPERANDO")
+        print("********************")
         self.stamina -= 1
+        if self.stamina < 0:
+            self.drop_meat(map)
 
     def eat(self,map):
         food_need = self.initial_stm - self.stamina
-        map[self.position].food -= food_need
-        if map[self.position].food < 0:
-            self.stamina = self.initial_stm + map[self.position].food
+        if map[self.position].food == 0:
+            self.stamina-=1
+            if self.stamina < 0:
+                self.drop_meat(map)
+            return
+        food = map[self.position].food - food_need
+        if food < 0:
+            self.stamina += map[self.position].food
             map[self.position].food = 0
         else:
             self.stamina = self.initial_stm
+        print("********************")
+        print(f"{self} ESTOY COMIENDO: {self.stamina}")
+        print("********************")
 
 
     def _update_sens_concepts(self, close_pred, close_food, local_food, max_food):

@@ -45,7 +45,7 @@ class WaterCell(Cell):
         super().__init__()
         self.typeOfCell = "water"
         self.restrictions["mobility"] = -2
-        self.restrictions["stamina"] = -3
+        self.restrictions["stamina"] = -1
         self.icon = 'W'
         
 class ForestCell(Cell):
@@ -61,7 +61,7 @@ class MountainCell(Cell):
         super().__init__()
         self.typeOfCell = "mountain"
         self.restrictions["mobility"] = -2
-        self.restrictions["stamina"] = -2
+        self.restrictions["stamina"] = -1
         self.icon = 'M'
 
 class MeadowCell(Cell):
