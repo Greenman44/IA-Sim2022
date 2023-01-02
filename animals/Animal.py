@@ -21,9 +21,9 @@ class Animal:
 
     def random_move(self, moves, map):
         if len(moves) == 0:
-            print("********************")
-            print(f"{self} NO PUDE MOVERME")
-            print("********************")
+            # print("********************")
+            # print(f"{self} NO PUDE MOVERME")
+            # print("********************")
             self.stamina -= 1
             if self.stamina < 0:
                 self.drop_meat(map)
@@ -36,9 +36,9 @@ class Animal:
         pass
 
     def Move(self, map, new_pos, expen_stamina):
-        print("********************")
-        print(f"{self} ESTOY MOVIENDOME A LA CASILLA: ({new_pos.x}, {new_pos.y})")
-        print("********************")
+        # print("********************")
+        # print(f"{self} ESTOY MOVIENDOME A LA CASILLA: ({new_pos.x}, {new_pos.y})")
+        # print("********************")
         index = map[self.position].animals.index(self)
         map[self.position].animals.pop(index)
         self.position = new_pos

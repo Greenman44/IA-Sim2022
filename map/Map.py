@@ -12,6 +12,7 @@ class Map:
         self.max_prey_food = max_prey_food
         self.max_pred_food = max_pred_food
         self.cell_List = []
+        self.participants = []
         self.Builder_self()
     
     def Builder_self(self, map = []):
@@ -61,21 +62,19 @@ class Map:
                         print(Fore.GREEN, self[i,j].icon, end="")
 
     def SetAnimalDistribution(self,numPreys, numPredators):
-        participants = []
         for i in range(numPreys):
             x = random.randint(0,self.row - 1)
             y = random.randint(0,self.col - 1)
             prey = Prey(x,y)       
             self[x,y].animals.append(prey)
-            participants.append(prey)
+            self.participants.append(prey)
 
         for i in range(numPredators):
             x = random.randint(0, self.row - 1)
             y = random.randint(0, self.col - 1)
             pred = Predator(x,y)
             self[x,y].animals.append(pred)
-            participants.append(pred)
-        return participants
+            self.participants.append(pred)
                 
     def SetGrassDistribution(self ,grassprob = 0.18):
         for i in range(self.row):

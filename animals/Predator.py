@@ -63,9 +63,9 @@ class Predator(Animal):
 
     #TODO: action methods
     def hunt(self,map):
-        print("********************")
-        print(f"{self} ESTOY CAZANDO")
-        print("********************")
+        # print("********************")
+        # print(f"{self} ESTOY CAZANDO")
+        # print("********************")
         moves_stamina, moves_distance = self.ActionsSet(map)
         if len(self.close_prey) == 0:
             self.random_move(moves_stamina, map) 
@@ -81,8 +81,8 @@ class Predator(Animal):
         self.random_move(moves_stamina, map)
 
     def fight(self, prey, map):
-        print(f"fight : {self} vs {prey}")
-        print("******************************")
+        # print(f"fight : {self} vs {prey}")
+        # print("******************************")
         norm_opponentStrength = prey.strength / (self.strength + prey.strength)
         r = random.random()
 
@@ -91,24 +91,24 @@ class Predator(Animal):
             prey_index = map[self.position].animals.index(prey)
             map[self.position].animals.pop(prey_index)
             prey.drop_meat(map)
-            print("pred won")
+            # print("pred won")
             self.stamina -= int(prey.strength/2)
             if self.stamina < 0:
                 self.drop_meat(map)
-            print("**************************")
+            # print("**************************")
             return
         prey.stamina -= int(self.strength/2)
         if prey.stamina < 0:
             prey.drop_meat(map)
-        print("prey won")
-        print("**************************")
+        # print("prey won")
+        # print("**************************")
         
         
             
     def search_food(self,map):
-        print("********************")
-        print(f"{self} ESTOY BUSCANDO COMIDA")
-        print("********************")
+        # print("********************")
+        # print(f"{self} ESTOY BUSCANDO COMIDA")
+        # print("********************")
         moves_stamina, moves_distance = self.ActionsSet(map)
         for cell in self.close_food:
             if cell[0] in moves_stamina:
@@ -118,16 +118,16 @@ class Predator(Animal):
         
 
     def explore(self,map):
-        print("********************")
-        print(f"{self} ESTOY EXPLORANDO")
-        print("********************")
+        # print("********************")
+        # print(f"{self} ESTOY EXPLORANDO")
+        # print("********************")
         moves, other = self.ActionsSet(map)
         self.random_move(moves, map)
     
     def wait(self,map):
-        print("********************")
-        print(f"{self} ESTOY ESPERANDO")
-        print("********************")
+        # print("********************")
+        # print(f"{self} ESTOY ESPERANDO")
+        # print("********************")
         self.stamina -= 1 
         if self.stamina < 0:
             self.drop_meat(map)  
@@ -145,9 +145,9 @@ class Predator(Animal):
             map[self.position].pred_food = 0
         else:
             self.stamina = self.initial_stm
-        print("********************")
-        print(f"{self} ESTOY COMIENDO: {self.stamina}")
-        print("********************")
+        # print("********************")
+        # print(f"{self} ESTOY COMIENDO: {self.stamina}")
+        # print("********************")
 
     def update_sens_concepts(self, close_pred, close_food, local_food, max_food):
         sens = self.fcm._sens_index_params

@@ -43,9 +43,9 @@ class Prey(Animal):
         return actions[action](map)
     
     def escape(self,map):
-        print("********************")
-        print(f"{self} ESTOY ESCAPANDO")
-        print("********************")
+        # print("********************")
+        # print(f"{self} ESTOY ESCAPANDO")
+        # print("********************")
         moves_stamina, moves_distance = self.ActionsSet(map)
         if len(self.close_pred) == 0:
             self.random_move(moves_stamina, map)
@@ -64,9 +64,9 @@ class Prey(Animal):
         self.random_move(moves_toMake, map)
 
     def search_food(self,map):
-        print("********************")
-        print(f"{self} ESTOY BUSCANDO COMIDA")
-        print("********************")
+        # print("********************")
+        # print(f"{self} ESTOY BUSCANDO COMIDA")
+        # print("********************")
         moves_stamina, moves_distance = self.ActionsSet(map)
         for cell in self.close_food:
             if cell[0] in moves_stamina:
@@ -75,17 +75,17 @@ class Prey(Animal):
         self.random_move(moves_stamina, map) 
 
     def explore(self,map):
-        print("********************")
-        print(f"{self} ESTOY EXPLORANDO")
-        print("********************")
+        # print("********************")
+        # print(f"{self} ESTOY EXPLORANDO")
+        # print("********************")
         moves, other = self.ActionsSet(map)
         moves.pop((self.position.x, self.position.y))
         self.random_move(moves, map)
     
     def wait(self,map):
-        print("********************")
-        print(f"{self} ESTOY ESPERANDO")
-        print("********************")
+        # print("********************")
+        # print(f"{self} ESTOY ESPERANDO")
+        # print("********************")
         self.stamina -= 1
         if self.stamina < 0:
             self.drop_meat(map)
@@ -103,9 +103,9 @@ class Prey(Animal):
             map[self.position].food = 0
         else:
             self.stamina = self.initial_stm
-        print("********************")
-        print(f"{self} ESTOY COMIENDO: {self.stamina}")
-        print("********************")
+        # print("********************")
+        # print(f"{self} ESTOY COMIENDO: {self.stamina}")
+        # print("********************")
 
 
     def _update_sens_concepts(self, close_pred, close_food, local_food, max_food):

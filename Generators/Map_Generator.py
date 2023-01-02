@@ -19,5 +19,5 @@ def gen_map(rows, columns, preys_amount, preds_amount, max_prey_food, max_pred_f
     solution = csp.backtracking_search()
     ConvertListCell_in_SolutionCell(solution,vara,map)
     map.SetGrassDistribution()
-    participants = map.SetAnimalDistribution(preys_amount, preds_amount)
-    return map, participants
+    map.SetAnimalDistribution(preys_amount, preds_amount)
+    return map

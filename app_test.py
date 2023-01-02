@@ -1,16 +1,21 @@
 from Generators.Map_Generator import gen_map
-from Simulation.Prey_vs_Predator import run
+
+from iAalgorithm.SimulatedAnnealing import SimulatedAnnealingEcoSystem
 # import numpy as np
 
-map, participants = gen_map(50,50,200,20,30,30)
-map.pretty_self()
-print("***********************************")
-preys, preds = run(20,map, participants)
-print("PREYS*****************")
-print(preys)
-print("*********************************")
-print("PREDS*****************")
-print(preds)
+map = gen_map(15,15,10,4,30,30)
+# map.pretty_self()
+# print("***********************************")
+# preys, preds = run(20,map, participants)
+# print("PREYS*****************")
+# print(preys)
+# print("*********************************")
+# print("PREDS*****************")
+# print(preds)
+
+sim = SimulatedAnnealingEcoSystem(map, map.participants[len(map.participants)- 1].fcm.causal_graph, n_iterations=50, sim_steps=10)
+sim.run()
+
 
 
 
