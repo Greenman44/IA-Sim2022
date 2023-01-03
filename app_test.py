@@ -15,7 +15,7 @@ map = gen_map(15,15,10,4,30,30)
 
 map.pretty_self()
 
-sim = SimulatedAnnealingEcoSystem(map, map.participants[len(map.participants)- 1].fcm.causal_graph, n_iterations=20, sim_steps=10)
+sim = SimulatedAnnealingEcoSystem(map, map.participants[len(map.participants)- 1].fcm.causal_graph, n_iterations=30, sim_steps=10)
 sim.run()
 
 
