@@ -22,7 +22,7 @@ class SimulatedAnnealingEcoSystem(object):
         self.Cscore = self.path_dist(currentMap,current_path)
         for i in range(self.n_iterations):
             currentMap = copy.deepcopy(self.map)
-            next_path = self.succesor(current_path)
+            next_path = self.succesor(current_path,t)
             self.Nscore = self.path_dist(currentMap,next_path)
             print(next_path)
             
@@ -60,13 +60,13 @@ class SimulatedAnnealingEcoSystem(object):
             return 1.0
          return math.exp((next_dist-current_dist)/temp)
     
-    def succesor(self, path):
-        for i in range(4):
+    def succesor(self, path,t):
+        for i in range(int(random.gauss(1,t/(10**8)))):
             j = random.randint(0,7)
             k = random.randint(0,3)
-            path[j,k] = random.uniform(path[j,k] - 2, path[j,k] + 2)
-        for i in range(4):
-            j = random.randint(7,11)
+            path[j,k] = random.gauss(path[j,k], 2 * (t/(10**(8.8))))
+        for i in range(int(random.gauss(1,t/(10**8)))):
+            j = random.randint(8,11)
             k = random.randint(4,8)
-            path[j,k] = random.uniform(path[j,k] - 2, path[j,k] + 2)
+            path[j,k] = random.gauss(path[j,k], 2 * (t/(10**(8.8))))
         return path
