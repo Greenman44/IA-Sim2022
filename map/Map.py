@@ -24,9 +24,6 @@ class Map:
             for j in range(self.col):
                 self.cell_List[i].append(Cell())
             
-    def IA_Cell_Builder(self):
-        # TODO: Implemnt an IA for create the feature of every cell in the self
-        pass
 
     def get_max_food(self):
         return (self.max_prey_food, self.max_pred_food)

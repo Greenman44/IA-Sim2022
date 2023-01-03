@@ -6,7 +6,6 @@ from Tools import *
 
 
 
-# TODO: Untested
 class MapConstraint(Constraint[str,str]):
     def __init__(self, string1: str, string2:str) -> None:
         super().__init__([string1,string2])

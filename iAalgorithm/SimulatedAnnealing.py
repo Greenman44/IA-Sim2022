@@ -2,6 +2,7 @@ import random
 import math
 import copy
 from Simulation.Prey_vs_Predator import run
+from pandas import DataFrame
 class SimulatedAnnealingEcoSystem(object):
 
     def __init__(self,map, vectorizedFCM, n_iterations = 30,sim_steps = 20, a = 0.99, t_0= 10**9):
@@ -13,6 +14,7 @@ class SimulatedAnnealingEcoSystem(object):
         self.t_0 = t_0
         self.Cscore = -1
         self.Nscore = -1
+        self.iteration = 0
         
     def run(self):
         current_path = self.distances
@@ -20,11 +22,15 @@ class SimulatedAnnealingEcoSystem(object):
         t = self.t_0
         currentMap = copy.deepcopy(self.map)
         self.Cscore = self.path_dist(currentMap,current_path)
+        dictOfScore = {}
         for i in range(self.n_iterations):
+            dictOfScore[i] = []
+        for i in range(self.n_iterations):
+            self.iteration = i
             currentMap = copy.deepcopy(self.map)
             next_path = self.succesor(current_path)
             self.Nscore = self.path_dist(currentMap,next_path)
-            print(next_path)
+            # print(next_path)
             
             if self.Cscore > all_time_shortest_path[2]:
                 all_time_shortest_path = (i, current_path ,self.Cscore)  
@@ -35,19 +41,30 @@ class SimulatedAnnealingEcoSystem(object):
                 
             t = self.temperature(t)
             
-            print("ITERACION*******************************")
-            print(i)
-            print("BEST SOLUTION**********************************")
-            print(all_time_shortest_path[1])
-            print("SCORE*******************************")
-            print(self.Cscore, all_time_shortest_path[2])
+            dictOfScore[i].append(self.Cscore)
+            dictOfScore[i].append(all_time_shortest_path[2])
+
+            df = DataFrame(all_time_shortest_path[1])
+            with open("Result_Of_Plays/simulation_" + str(i) + ".txt", "a") as file:
+                file.write("\n"+df.to_string())
+                file.close()
+            # print("ITERACION*******************************")
+            # print(i)
+            # print("BEST SOLUTION**********************************")
+            # print(all_time_shortest_path[1])
+            # print("SCORE*******************************")
+            # print(self.Cscore, all_time_shortest_path[2])
+        df = DataFrame(data=dictOfScore)
+        with open("Result_Of_Plays/Simulated_Annealing.txt", "w")as file:
+            file.write(df.to_string())
+            file.close()
         return all_time_shortest_path
     
     def path_dist(self, currentMap,nextVec):
         parts = currentMap.participants
         parts[len(parts) - 1].fcm.causal_graph = nextVec
         preys,predator = run(self.sim_steps,currentMap,parts)
-        
+
         return predator[len(parts) - 1]["steps"] + predator[len(parts) - 1]["stamina"]
 
     def temperature(self, t):

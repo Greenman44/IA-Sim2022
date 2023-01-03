@@ -61,7 +61,6 @@ class Predator(Animal):
         }
         return actions[action](map)
 
-    #TODO: action methods
     def hunt(self,map):
         # print("********************")
         # print(f"{self} ESTOY CAZANDO")
