@@ -30,7 +30,6 @@ class SimulatedAnnealingEcoSystem(object):
             currentMap = copy.deepcopy(self.map)
             next_path = self.succesor(current_path,t)
             self.Nscore = self.path_dist(currentMap,next_path)
-            # print(next_path)
             
             if self.Cscore > all_time_shortest_path[2]:
                 all_time_shortest_path = (i, current_path ,self.Cscore)  
@@ -47,13 +46,7 @@ class SimulatedAnnealingEcoSystem(object):
             df = DataFrame(all_time_shortest_path[1])
             with open("Result_Of_Plays/simulation_" + str(i) + ".txt", "a") as file:
                 file.write("\n"+df.to_string())
-                file.close()
-            # print("ITERACION*******************************")
-            # print(i)
-            # print("BEST SOLUTION**********************************")
-            # print(all_time_shortest_path[1])
-            # print("SCORE*******************************")
-            # print(self.Cscore, all_time_shortest_path[2])
+                file.close()    
         df = DataFrame(data=dictOfScore)
         with open("Result_Of_Plays/Simulated_Annealing.txt", "w")as file:
             file.write(df.to_string())

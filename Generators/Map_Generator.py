@@ -2,7 +2,7 @@ from map.Map import Map
 from iAalgorithm.CSP import CSP
 from iAalgorithm.CSP_Map import *
 
-def gen_map(rows, columns, preys_amount, preds_amount, max_prey_food, max_pred_food):
+def gen_map(rows, columns, preys_amount = 10, preds_amount = 4, max_prey_food = 30, max_pred_food = 30):
     map = Map(rows, columns, max_prey_food, max_pred_food)
 
     vara = RandomCellForGenerate(map,int((rows*columns)/3))
